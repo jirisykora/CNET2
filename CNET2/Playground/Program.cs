@@ -40,9 +40,11 @@ var strUL = strings.Select(x => new UpperLowerString(x))
                    .Select(objX => $"upper:{objX.UpperCase} lower:{objX.LowerCase}");
 
 PrintList(strUL.ToList()); 
+ // 5 - pomoci tuplu
 
+var res = strings.Select(slovo => (slovo.ToUpper(), slovo.ToLower()));
 
-
+PrintItems<(string, string)>(res);
 
 
 
@@ -50,6 +52,14 @@ PrintList(strUL.ToList());
 static void PrintList(List<string> list)
 {
     foreach (var item in list)
+    {
+        Console.WriteLine(item);
+    }
+}
+
+static void PrintItems<T>(IEnumerable<T> items)
+{
+    foreach(var item in items)
     {
         Console.WriteLine(item);
     }
