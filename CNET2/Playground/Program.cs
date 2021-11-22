@@ -63,8 +63,8 @@ var bookdir = @"D:\Source\Repos\CNET2\CNET2\Playground\Books";
 
 foreach (var file in GetFilesFromDir(bookdir))
 {
-    var dict = TextTools.WordAnalyze(file);
-    var top10 = TextTools.GetTopTen(10, dict);
+    var dict = TextTools.TextTools.FreqAnalyze(file);
+    var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
     var fi = new FileInfo(file);
 
