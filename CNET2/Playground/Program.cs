@@ -1,4 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Playground;
+using System.Linq;
+
 Console.WriteLine("Hello, World!");
 
 var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
@@ -19,6 +22,11 @@ Console.WriteLine($"jsou vsechna cisla suda: {isEvenNumbers}");
 
 var result = numbers.Select(x => strings[x]);
 PrintList(result.ToList());
+//foreach (var number in numbers)
+//{
+//    Console.WriteLine($"{strings[number]}");
+//}
+
 
 // 4 - zjistěte kolik obsahují všechna
 // slova v poli "strings" dohromady písmen
@@ -26,10 +34,13 @@ PrintList(result.ToList());
 var count = strings.Select(x=> x.Length).Sum();
 Console.WriteLine($"Soucet vsech pismen v poli strings: {count}");
 
-//foreach (var number in numbers)
-//{
-//    Console.WriteLine($"{strings[number]}");
-//}
+// 5 - 
+
+var strUL = strings.Select(x => new UpperLowerString(x))
+                   .Select(objX => $"upper:{objX.UpperCase} lower:{objX.LowerCase}");
+
+PrintList(strUL.ToList()); 
+
 
 
 
