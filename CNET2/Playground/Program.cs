@@ -6,3 +6,8 @@ var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "sev
 
 
 var ustrings = strings.Select(x => x.ToUpper());
+
+foreach (var ustring in ustrings)
+{
+    Console.WriteLine(ustring);
+}
