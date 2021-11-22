@@ -4,10 +4,19 @@ Console.WriteLine("Hello, World!");
 var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-
+// 1 preved strings na uppercase
 var ustrings = strings.Select(x => x.ToUpper());
 
-foreach (var ustring in ustrings)
+PrintList(ustrings.ToList());
+
+ // 2 zjistit v poli suda cisla
+
+bool isEvenNumbers = numbers.All(x => x % 2 == 0);
+
+static void PrintList(List<string> list)
 {
-    Console.WriteLine(ustring);
+    foreach (var item in list)
+    {
+        Console.WriteLine(item);
+    }
 }
