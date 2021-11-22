@@ -17,11 +17,19 @@ Console.WriteLine($"jsou vsechna cisla suda: {isEvenNumbers}");
 
 // 3 -vypiste cisla v poli numbers jako slova
 
-foreach (var number in numbers)
-{
-    Console.WriteLine($"{strings[number]}");
-}
+var result = numbers.Select(x => strings[x]);
+PrintList(result.ToList());
 
+//foreach (var number in numbers)
+//{
+//    Console.WriteLine($"{strings[number]}");
+//}
+
+
+
+
+
+// PRINT LIST
 static void PrintList(List<string> list)
 {
     foreach (var item in list)
