@@ -20,6 +20,12 @@ Console.WriteLine($"jsou vsechna cisla suda: {isEvenNumbers}");
 var result = numbers.Select(x => strings[x]);
 PrintList(result.ToList());
 
+// 4 - zjistěte kolik obsahují všechna
+// slova v poli "strings" dohromady písmen
+
+int count = strings.Select(x=> x.Length).Sum();
+Console.WriteLine(count);
+
 //foreach (var number in numbers)
 //{
 //    Console.WriteLine($"{strings[number]}");
