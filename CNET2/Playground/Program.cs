@@ -23,8 +23,8 @@ PrintList(result.ToList());
 // 4 - zjistěte kolik obsahují všechna
 // slova v poli "strings" dohromady písmen
 
-int count = strings.Select(x=> x.Length).Sum();
-Console.WriteLine(count);
+var count = strings.Select(x=> x.Length).Sum();
+Console.WriteLine($"Soucet vsech pismen v poli strings: {count}");
 
 //foreach (var number in numbers)
 //{
