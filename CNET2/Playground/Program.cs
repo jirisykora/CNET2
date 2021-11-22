@@ -46,7 +46,16 @@ var res = strings.Select(slovo => (slovo.ToUpper(), slovo.ToLower()));
 
 PrintItems<(string, string)>(res);
 
+// 6 -frekvence vyskytu jednotlivych pismen ve vsech polozkach pole strings
 
+var OneString = string.Join("", strings);  // spojim slova do jednoho retezce
+var res2 = OneString                                    // pracuji se stringem jako s kolekci znaku
+                    .GroupBy(x => x)                    // seskupuji podle pismenek (char v lkolekci string)
+                    .Select(g => (g.Key, g.Count()))   // udelam tuple obsahujici klic a pocet vyskytu
+                    .OrderByDescending(x => x.Item2)
+                    .ThenBy(x => x.Key)
+                    ;    
+PrintItems<(char, int)>(res2);
 
 // PRINT LIST
 static void PrintList(List<string> list)

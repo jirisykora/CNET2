@@ -13,8 +13,8 @@ namespace Playground
             UpperCase = s.ToUpper();    
             LowerCase = s.ToLower();
         }
-        public string UpperCase { get; set; }
+        public string UpperCase { get; }
 
-        public string LowerCase { get; set; }
+        public string LowerCase { get; }
     }
 }
