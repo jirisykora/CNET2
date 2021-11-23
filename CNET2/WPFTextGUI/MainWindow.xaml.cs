@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -107,6 +108,73 @@ namespace WPFTextGUI
             var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
             foreach (var kv in top10)
+            {
+                txbInfo.Text += $"{kv.Key}: {kv.Value} {Environment.NewLine}";
+            }
+
+            stopwatch.Stop();
+            txbDebugInfo.Text = "elapsed ms: " + stopwatch.ElapsedMilliseconds;
+            Mouse.OverrideCursor = null;
+        }
+
+        private void btnStatsAllParallel_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            txbInfo.Text = "";
+            txbDebugInfo.Text = "";
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            ConcurrentDictionary<string, int> dict = new();
+
+            var files = GetBigFiles();
+
+            Parallel.ForEach(files, file =>
+            {
+                foreach(var word in File.ReadAllLines(file))
+                {
+                    dict.AddOrUpdate(word, 1, (key, oldValue) => oldValue + 1);
+                }
+            });
+
+            foreach (var kv in dict.OrderByDescending(x => x.Value).Take(10))
+            {
+                txbInfo.Text += $"{kv.Key}: {kv.Value} {Environment.NewLine}";
+            }     
+
+            stopwatch.Stop();
+            txbDebugInfo.Text = "elapsed ms: " + stopwatch.ElapsedMilliseconds;
+            Mouse.OverrideCursor = null;
+        }
+
+        // pouzitim lock
+        private void btnStatsAllParallelLock_Click(object sender, RoutedEventArgs e)
+        {
+            txbInfo.Text = txbDebugInfo.Text = "";
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
+
+            object locker = new object();
+            Dictionary<string, int> dict = new();
+
+            var files = GetBigFiles();
+
+            Parallel.ForEach(files, file =>
+            {
+                foreach (var word in File.ReadAllLines(file))
+                {
+                    lock (locker)
+                    {
+                        if (dict.ContainsKey(word))
+                            dict[word]++;
+                        else
+                            dict.Add(word, 1);
+                    }
+                }
+            });
+
+            foreach (var kv in dict.OrderByDescending(x => x.Value).Take(10))
             {
                 txbInfo.Text += $"{kv.Key}: {kv.Value} {Environment.NewLine}";
             }
