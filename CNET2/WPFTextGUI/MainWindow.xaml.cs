@@ -22,6 +22,12 @@ namespace WPFTextGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        static string bigfilesdir = @"D:\Source\Repos\CNET2\CNET2\BigFiles";
+
+        static IEnumerable<string> GetFilesFromDir(string dir)
+        {
+            return Directory.EnumerateFiles(dir);
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -49,24 +55,20 @@ namespace WPFTextGUI
             //}
         }
 
-        static IEnumerable<string> GetFilesFromDir(string dir)
-        {
-            return Directory.EnumerateFiles(dir);
-        }
-
         private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-
+            txbInfo.Text = "";
+            txbDebugInfo.Text = "";
             Stopwatch stopwatch = new Stopwatch();  
             stopwatch.Start();
 
-            var bigfilesdir = @"D:\Source\Repos\CNET2\CNET2\BigFiles";
+            
 
             var files = Directory.EnumerateFiles(bigfilesdir, "*.txt");
             foreach (var file in files)
             {
-                var dict = await TextTools.TextTools.FreqAnalyze(file, Environment.NewLine);
+                var dict = await TextTools.TextTools.FreqAnalyzeFromFileAsync(file, Environment.NewLine);
                 var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
                 var fi = new FileInfo(file);
@@ -83,6 +85,11 @@ namespace WPFTextGUI
             stopwatch.Stop();
             txbDebugInfo.Text = "elapsed ms: " + stopwatch.ElapsedMilliseconds;
             Mouse.OverrideCursor = null;
+
+        }
+
+        private void btnStatsAll_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
