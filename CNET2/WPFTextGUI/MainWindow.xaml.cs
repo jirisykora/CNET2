@@ -54,9 +54,11 @@ namespace WPFTextGUI
             return Directory.EnumerateFiles(dir);
         }
 
-        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
-            Stopwatch stopwatch = new Stopwatch();
+            Mouse.OverrideCursor = Cursors.Wait;
+
+            Stopwatch stopwatch = new Stopwatch();  
             stopwatch.Start();
 
             var bigfilesdir = @"D:\Source\Repos\CNET2\CNET2\BigFiles";
@@ -64,7 +66,7 @@ namespace WPFTextGUI
             var files = Directory.EnumerateFiles(bigfilesdir, "*.txt");
             foreach (var file in files)
             {
-                var dict = TextTools.TextTools.FreqAnalyze(file, Environment.NewLine);
+                var dict = await TextTools.TextTools.FreqAnalyze(file, Environment.NewLine);
                 var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
                 var fi = new FileInfo(file);
@@ -80,6 +82,7 @@ namespace WPFTextGUI
 
             stopwatch.Stop();
             txbDebugInfo.Text = "elapsed ms: " + stopwatch.ElapsedMilliseconds;
+            Mouse.OverrideCursor = null;
 
         }
     }
