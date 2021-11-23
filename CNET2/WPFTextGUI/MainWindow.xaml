@@ -6,9 +6,14 @@
         xmlns:local="clr-namespace:WPFTextGUI"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="600" Width="800">
+        Title="JiS" Height="600" Width="800">
     <Grid>
-        <ScrollViewer>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="63*"/>
+            <ColumnDefinition Width="725*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.ColumnSpan="3">
             <TextBlock x:Name="txbInfo" TextWrapping="Wrap" Height="558" Width="764"/>
         </ScrollViewer>
     </Grid>
