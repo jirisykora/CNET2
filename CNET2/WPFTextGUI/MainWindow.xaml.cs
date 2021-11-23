@@ -24,9 +24,9 @@ namespace WPFTextGUI
     {
         static string bigfilesdir = @"D:\Source\Repos\CNET2\CNET2\BigFiles";
 
-        static IEnumerable<string> GetFilesFromDir(string dir)
+        static IEnumerable<string> GetBigFiles()
         {
-            return Directory.EnumerateFiles(dir);
+            return Directory.EnumerateFiles(bigfilesdir,"*.txt");
         }
         public MainWindow()
         {
@@ -64,8 +64,9 @@ namespace WPFTextGUI
             stopwatch.Start();
 
             
-
             var files = Directory.EnumerateFiles(bigfilesdir, "*.txt");
+            
+            
             foreach (var file in files)
             {
                 var dict = await TextTools.TextTools.FreqAnalyzeFromFileAsync(file, Environment.NewLine);
@@ -80,6 +81,7 @@ namespace WPFTextGUI
                     txbInfo.Text += item + Environment.NewLine;
                 }
 
+                pgbProgress.Value += 100.0 / files.Count();  
             }
 
             stopwatch.Stop();
@@ -90,7 +92,28 @@ namespace WPFTextGUI
 
         private void btnStatsAll_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
+            txbInfo.Text = "";
+            txbDebugInfo.Text = "";
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
+            var files = GetBigFiles();
+            var allwords = 
+                string.Join(Environment.NewLine,
+                files.Select(f => File.ReadAllText(f)));
+
+            var dict = TextTools.TextTools.FreqAnalyzeFromString(allwords, Environment.NewLine);
+            var top10 = TextTools.TextTools.GetTopWord(10, dict);
+
+            foreach (var kv in top10)
+            {
+                txbInfo.Text += $"{kv.Key}: {kv.Value} {Environment.NewLine}";
+            }
+
+            stopwatch.Stop();
+            txbDebugInfo.Text = "elapsed ms: " + stopwatch.ElapsedMilliseconds;
+            Mouse.OverrideCursor = null;
         }
     }
 }
