@@ -60,6 +60,9 @@ var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "sev
 // 7. Dictionary
 
 var bookdir = @"D:\Source\Repos\CNET2\CNET2\Playground\Books";
+var str = "123456";
+
+//Console.WriteLine(Char.IsDigit(str));
 
 foreach (var file in GetFilesFromDir(bookdir))
 {

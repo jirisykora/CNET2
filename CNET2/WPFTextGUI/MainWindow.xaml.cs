@@ -28,24 +28,24 @@ namespace WPFTextGUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var bookdir = @"D:\Source\Repos\CNET2\CNET2\Playground\Books";
+            //var bookdir = @"D:\Source\Repos\CNET2\CNET2\Playground\Books";
 
-            foreach (var file in GetFilesFromDir(bookdir))
-            {
-                var dict = TextTools.TextTools.FreqAnalyze(file);
-                var top10 = TextTools.TextTools.GetTopWord(10, dict);
+            //foreach (var file in GetFilesFromDir(bookdir))
+            //{
+            //    var dict = TextTools.TextTools.FreqAnalyze(file);
+            //    var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
-                var fi = new FileInfo(file);
+            //    var fi = new FileInfo(file);
 
-                
-                var top10_list = top10.Select(x => $"{x.Key} : {x.Value}").ToList();
-                txbInfo.Text += "KNIHA: " + fi.Name + Environment.NewLine;  
-                foreach (var item in top10_list)
-                {
-                    txbInfo.Text += item + Environment.NewLine;
-                }
 
-            }
+            //    var top10_list = top10.Select(x => $"{x.Key} : {x.Value}").ToList();
+            //    txbInfo.Text += "KNIHA: " + fi.Name + Environment.NewLine;  
+            //    foreach (var item in top10_list)
+            //    {
+            //        txbInfo.Text += item + Environment.NewLine;
+            //    }
+
+            //}
         }
 
         static IEnumerable<string> GetFilesFromDir(string dir)
@@ -53,5 +53,28 @@ namespace WPFTextGUI
             return Directory.EnumerateFiles(dir);
         }
 
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            
+            var bigfilesdir = @"D:\Source\Repos\CNET2\CNET2\BigFiles";
+
+            var files = Directory.EnumerateFiles(bigfilesdir, "*.txt");
+            foreach (var file in files)
+            {
+                var dict = TextTools.TextTools.FreqAnalyze(file, Environment.NewLine);
+                var top10 = TextTools.TextTools.GetTopWord(10, dict);
+
+                var fi = new FileInfo(file);
+
+                var top10_list = top10.Select(x => $"{x.Key} : {x.Value}").ToList();
+                txbInfo.Text += "KNIHA: " + fi.Name + Environment.NewLine;
+                foreach (var item in top10_list)
+                {
+                    txbInfo.Text += item + Environment.NewLine;
+                }
+
+            }
+
+        }
     }
 }
