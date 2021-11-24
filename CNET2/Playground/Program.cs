@@ -3,6 +3,12 @@ using Playground;
 using System.Diagnostics;
 using System.Linq;
 
+//public Task task1;
+//Task task2;
+//Task task3;
+
+
+
 Console.WriteLine("Hello, World!");
 
 Stopwatch stopwatch = new Stopwatch();
@@ -13,56 +19,57 @@ stopwatch.Start();
 // https://www.gutenberg.org/cache/epub/19694/pg19694.txt
 // stahnete texty z techto tri adres a paralelne provedte textovou analyzu
 // a vypiste vysledky - kazdou knihu samostatne
+try
+{
 
-var client = new HttpClient();
-var res1 = await client.GetAsync("https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
-var res2 = await client.GetAsync("https://www.gutenberg.org/files/16749/16749-0.txt");
-var res3 = await client.GetAsync("https://www.gutenberg.org/cache/epub/19694/pg19694.txt");
+    using HttpClient client = new();
 
-if (res1.IsSuccessStatusCode)
-    {
-        var content1 = await res1.Content.ReadAsStringAsync();
+
+    var res1 = await client.GetAsync("https://www.gutenberg.org/cache/epub/2036/pg2036.txt").Result.Content.ReadAsStringAsync();
+    var res2 = await client.GetAsync("https://www.gutenberg.org/files/16749/16749-0.txt").Result.Content.ReadAsStringAsync();
+    var res3 = await client.GetAsync("https://www.gutenberg.org/cache/epub/19694/pg19694.txt").Result.Content.ReadAsStringAsync();
+
         var task1 = Task.Run(() =>
         {
-            var dict = TextTools.TextTools.FreqAnalyzeFromString(content1);
+            var dict = TextTools.TextTools.FreqAnalyzeFromString(res1);
             var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
             Console.WriteLine("TASK1 - https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
-            PrintItems(top10); 
+            PrintItems(top10);
         });
-        task1.Wait();
-}
+        //task1.Wait();
+    
+            
+        var task2 = Task.Run(() =>
+        {
+            var dict = TextTools.TextTools.FreqAnalyzeFromString(res2);
+            var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
-if (res2.IsSuccessStatusCode)
+            Console.WriteLine("TASK2 - https://www.gutenberg.org/files/16749/16749-0.txt");
+            PrintItems(top10);
+        });
+        //task2.Wait();
+    
+        var task3 = Task.Run(() =>
+        {
+            var dict = TextTools.TextTools.FreqAnalyzeFromString(res3);
+            var top10 = TextTools.TextTools.GetTopWord(10, dict);
+
+            Console.WriteLine("TASK3 - https://www.gutenberg.org/cache/epub/19694/pg19694.txt");
+            PrintItems(top10);
+        });
+        //task3.Wait();
+    
+
+    Task.WaitAll(task1, task2, task3);  
+
+    stopwatch.Stop();
+    Console.WriteLine(Environment.NewLine + "elapsed time (ms): " + stopwatch.ElapsedMilliseconds);
+}
+catch (Exception ex)
 {
-    var content2 = await res2.Content.ReadAsStringAsync();
-    var task2 = Task.Run(() =>
-    {
-        var dict = TextTools.TextTools.FreqAnalyzeFromString(content2);
-        var top10 = TextTools.TextTools.GetTopWord(10, dict);
-
-        Console.WriteLine("TASK2 - https://www.gutenberg.org/files/16749/16749-0.txt");
-        PrintItems(top10);
-    });
-    task2.Wait();
-}
-
-if (res3.IsSuccessStatusCode)
-{
-    var content3 = await res3.Content.ReadAsStringAsync();
-    var task3 = Task.Run(() =>
-    {
-        var dict = TextTools.TextTools.FreqAnalyzeFromString(content3);
-        var top10 = TextTools.TextTools.GetTopWord(10, dict);
-
-        Console.WriteLine("TASK3 - https://www.gutenberg.org/cache/epub/19694/pg19694.txt");
-        PrintItems(top10);
-    });
-    task3.Wait();
-}
-
-stopwatch.Stop();
-Console.WriteLine(Environment.NewLine + "elapsed time (ms): " + stopwatch.ElapsedMilliseconds);
+    Console.WriteLine(ex.ToString());   
+}    
 
 Console.WriteLine();
 
