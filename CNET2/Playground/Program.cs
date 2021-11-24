@@ -4,8 +4,32 @@ using System.Linq;
 
 Console.WriteLine("Hello, World!");
 
-var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
-var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+// Tasks example
+
+var task1 = Task.Run(() =>
+{
+    TextTools.TextTools.FreqAnalyzeFromFile(@"D:\Source\Repos\CNET2\CNET2\BigFiles\words01.txt", Environment.NewLine);
+    Console.WriteLine("Task 1 finished.");
+});
+
+
+var task2 = Task.Run(() =>
+{
+    TextTools.TextTools.FreqAnalyzeFromFile(@"D:\Source\Repos\CNET2\CNET2\BigFiles\words09.txt", Environment.NewLine);
+    Console.WriteLine("Task 2 finished.");
+});
+
+
+await Task.WhenAny(task1, task2);
+
+
+Console.WriteLine("Program finished.");
+Console.WriteLine();
+
+
+
+//var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+//var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
 //// 1 strings: preved strings na uppercase
 //var ustrings = strings.Select(x => x.ToUpper());
@@ -59,25 +83,25 @@ var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "sev
 
 // 7. Dictionary
 
-var bookdir = @"D:\Source\Repos\CNET2\CNET2\Playground\Books";
-var str = "123456";
+//var bookdir = @"D:\Source\Repos\CNET2\CNET2\Playground\Books";
+//var str = "123456";
 
-//Console.WriteLine(Char.IsDigit(str));
+////Console.WriteLine(Char.IsDigit(str));
 
-foreach (var file in GetFilesFromDir(bookdir))
-{
-    var dict = TextTools.TextTools.FreqAnalyze(file);
-    var top10 = TextTools.TextTools.GetTopWord(10, dict);
+//foreach (var file in GetFilesFromDir(bookdir))
+//{
+//    var dict = TextTools.TextTools.FreqAnalyze(file);
+//    var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
-    var fi = new FileInfo(file);
+//    var fi = new FileInfo(file);
 
-    Console.WriteLine("KNIHA: " + fi.Name);
-    PrintList(top10.Select(x => $"{x.Key} : {x.Value}").ToList());
-    Console.WriteLine();
-}
+//    Console.WriteLine("KNIHA: " + fi.Name);
+//    PrintList(top10.Select(x => $"{x.Key} : {x.Value}").ToList());
+//    Console.WriteLine();
+//}
 
 
-Console.WriteLine();
+//Console.WriteLine();
 
 
 // PRINT LIST
