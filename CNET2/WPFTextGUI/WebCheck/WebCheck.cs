@@ -47,7 +47,7 @@ namespace WPFTextGUI.Webcheck
                     if (content.Contains(Term, StringComparison.OrdinalIgnoreCase) == true)
                         Found = true;
 
-                    progress.Report($"{DateTime.Now.ToString()} {Found} + {Environment.NewLine}");
+                    progress.Report($"{DateTime.Now.ToString()} {Found} {Environment.NewLine}");
                 }
                 catch (Exception e)
                 {

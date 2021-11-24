@@ -33,7 +33,7 @@ namespace WPFTextGUI.Webcheck
 
             IProgress<string> progress = new Progress<string>(message =>
             {
-                tbWebCheckInfo.Text += message + Environment.NewLine;
+                tbWebCheckInfo.Text += message;
             });
 
             webcheck.Start(progress);
