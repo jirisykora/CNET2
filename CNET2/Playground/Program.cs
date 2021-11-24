@@ -4,27 +4,87 @@ using System.Linq;
 
 Console.WriteLine("Hello, World!");
 
-// Tasks example
 
-var task1 = Task.Run(() =>
+// https://www.gutenberg.org/cache/epub/2036/pg2036.txt
+// https://www.gutenberg.org/files/16749/16749-0.txt
+// https://www.gutenberg.org/cache/epub/19694/pg19694.txt
+// stahnete texty z techto tri adres a paralelne provedte textovou analyzu
+// a vypiste vysledky - kazdou knihu samostatne
+
+var client = new HttpClient();
+var res1 = await client.GetAsync("https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
+var res2 = await client.GetAsync("https://www.gutenberg.org/files/16749/16749-0.txt");
+var res3 = await client.GetAsync("https://www.gutenberg.org/cache/epub/19694/pg19694.txt");
+
+if (res1.IsSuccessStatusCode)
+    {
+        var content1 = await res1.Content.ReadAsStringAsync();
+        var task1 = Task.Run(() =>
+        {
+            var dict = TextTools.TextTools.FreqAnalyzeFromString(content1);
+            var top10 = TextTools.TextTools.GetTopWord(10, dict);
+
+            Console.WriteLine("TASK1 - https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
+            PrintItems(top10); 
+        });
+        task1.Wait();
+}
+
+if (res2.IsSuccessStatusCode)
 {
-    TextTools.TextTools.FreqAnalyzeFromFile(@"D:\Source\Repos\CNET2\CNET2\BigFiles\words01.txt", Environment.NewLine);
-    Console.WriteLine("Task 1 finished.");
-});
+    var content2 = await res2.Content.ReadAsStringAsync();
+    var task2 = Task.Run(() =>
+    {
+        var dict = TextTools.TextTools.FreqAnalyzeFromString(content2);
+        var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
+        Console.WriteLine("TASK2 - https://www.gutenberg.org/files/16749/16749-0.txt");
+        PrintItems(top10);
+    });
+    task2.Wait();
+}
 
-var task2 = Task.Run(() =>
+if (res3.IsSuccessStatusCode)
 {
-    TextTools.TextTools.FreqAnalyzeFromFile(@"D:\Source\Repos\CNET2\CNET2\BigFiles\words09.txt", Environment.NewLine);
-    Console.WriteLine("Task 2 finished.");
-});
+    var content3 = await res3.Content.ReadAsStringAsync();
+    var task3 = Task.Run(() =>
+    {
+        var dict = TextTools.TextTools.FreqAnalyzeFromString(content3);
+        var top10 = TextTools.TextTools.GetTopWord(10, dict);
+
+        Console.WriteLine("TASK3 - https://www.gutenberg.org/cache/epub/19694/pg19694.txt");
+        PrintItems(top10);
+    });
+    task3.Wait();
+}
 
 
-await Task.WhenAny(task1, task2);
-
-
-Console.WriteLine("Program finished.");
 Console.WriteLine();
+
+
+
+//// Tasks example
+//static void async TaskExample() { 
+//    var task1 = Task.Run(() =>
+//    {
+//        TextTools.TextTools.FreqAnalyzeFromFile(@"D:\Source\Repos\CNET2\CNET2\BigFiles\words01.txt", Environment.NewLine);
+//        Console.WriteLine("Task 1 finished.");
+//    });
+
+
+//    var task2 = Task.Run(() =>
+//    {
+//        TextTools.TextTools.FreqAnalyzeFromFile(@"D:\Source\Repos\CNET2\CNET2\BigFiles\words09.txt", Environment.NewLine);
+//        Console.WriteLine("Task 2 finished.");
+//    });
+
+
+//    await Task.WhenAny(task1, task2);
+
+
+//    Console.WriteLine("Program finished.");
+//    Console.WriteLine();
+//}
 
 
 
