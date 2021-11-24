@@ -29,47 +29,47 @@ try
     var res2 = await client.GetAsync("https://www.gutenberg.org/files/16749/16749-0.txt").Result.Content.ReadAsStringAsync();
     var res3 = await client.GetAsync("https://www.gutenberg.org/cache/epub/19694/pg19694.txt").Result.Content.ReadAsStringAsync();
 
-        var task1 = Task.Run(() =>
-        {
-            var dict = TextTools.TextTools.FreqAnalyzeFromString(res1);
-            var top10 = TextTools.TextTools.GetTopWord(10, dict);
+    var task1 = Task.Run(() =>
+    {
+        var dict = TextTools.TextTools.FreqAnalyzeFromString(res1);
+        var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
-            Console.WriteLine("TASK1 - https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
-            PrintItems(top10);
-        });
-        //task1.Wait();
-    
-            
-        var task2 = Task.Run(() =>
-        {
-            var dict = TextTools.TextTools.FreqAnalyzeFromString(res2);
-            var top10 = TextTools.TextTools.GetTopWord(10, dict);
+        Console.WriteLine("TASK1 - https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
+        PrintItems(top10);
+    });
+    //task1.Wait();
 
-            Console.WriteLine("TASK2 - https://www.gutenberg.org/files/16749/16749-0.txt");
-            PrintItems(top10);
-        });
-        //task2.Wait();
-    
-        var task3 = Task.Run(() =>
-        {
-            var dict = TextTools.TextTools.FreqAnalyzeFromString(res3);
-            var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
-            Console.WriteLine("TASK3 - https://www.gutenberg.org/cache/epub/19694/pg19694.txt");
-            PrintItems(top10);
-        });
-        //task3.Wait();
-    
+    var task2 = Task.Run(() =>
+    {
+        var dict = TextTools.TextTools.FreqAnalyzeFromString(res2);
+        var top10 = TextTools.TextTools.GetTopWord(10, dict);
 
-    Task.WaitAll(task1, task2, task3);  
+        Console.WriteLine("TASK2 - https://www.gutenberg.org/files/16749/16749-0.txt");
+        PrintItems(top10);
+    });
+    //task2.Wait();
+
+    var task3 = Task.Run(() =>
+    {
+        var dict = TextTools.TextTools.FreqAnalyzeFromString(res3);
+        var top10 = TextTools.TextTools.GetTopWord(10, dict);
+
+        Console.WriteLine("TASK3 - https://www.gutenberg.org/cache/epub/19694/pg19694.txt");
+        PrintItems(top10);
+    });
+    //task3.Wait();
+
+
+    Task.WaitAll(task1, task2, task3);
 
     stopwatch.Stop();
     Console.WriteLine(Environment.NewLine + "elapsed time (ms): " + stopwatch.ElapsedMilliseconds);
 }
 catch (Exception ex)
 {
-    Console.WriteLine(ex.ToString());   
-}    
+    Console.WriteLine(ex.ToString());
+}
 
 Console.WriteLine();
 
@@ -187,7 +187,7 @@ static void PrintList(List<string> list)
 
 static void PrintItems<T>(IEnumerable<T> items)
 {
-    foreach(var item in items)
+    foreach (var item in items)
     {
         Console.WriteLine(item);
     }

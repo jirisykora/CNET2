@@ -10,22 +10,21 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <Button Name="btnLoad" Content="Read Async"  Margin="10,5,265,0" VerticalAlignment="Top" Height="36" Click="btnLoad_Click" />
-        <Button Name ="btnStatsAll" Content="Stats All" Margin="140,5,141,0" VerticalAlignment="Top" Height="36" Click="btnStatsAll_Click"/>
-        <Button Name="btnStatsAllParallel" Content="Stats All (P)" Margin="264,4,9,20" Height="36" Click="btnStatsAllParallel_Click" />
-        <Button Name="btnStatsAllParallelLock" Content="Stats All (P-L)"
-                Grid.Row="0" FontSize="16" 
-                Height="36" Margin="0,5,290,23"
-                Click="btnStatsAllParallelLock_Click" Grid.Column="1"/>
-        <ProgressBar Name ="pgbProgress" Grid.ColumnSpan="2" Margin="10,45,10,5" Height="10" Width="780"/>
-
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Grid.Row="0">
+            <WrapPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="0" Height="36">
+                <Button Name="btnLoad" Content="Read Async" VerticalAlignment="Center" Height="35" Width ="70" Click="btnLoad_Click" />
+                <Button Name="btnStatsAllParallel" Content="Stats All (P)" Height="35" Width ="70" Click="btnStatsAllParallel_Click" />
+                <Button Name ="btnStatsAll" Content="Stats All" VerticalAlignment="Center" Height="35" Width ="70" Click="btnStatsAll_Click" />
+                <Button Name="btnStatsAllParallelLock" Content="Stats All (P-L)" Height="35" Width ="70" Click="btnStatsAllParallelLock_Click"/>
+            </WrapPanel>
+            <ProgressBar x:Name ="pgbProgress" Height="10" Width="780"/>
+        </StackPanel>
         <ScrollViewer Margin="0" Grid.Row="1">
             <TextBlock x:Name="txbInfo" TextWrapping="Wrap"/>
         </ScrollViewer>
