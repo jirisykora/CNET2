@@ -1,9 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Playground;
+using System.Diagnostics;
 using System.Linq;
 
 Console.WriteLine("Hello, World!");
 
+Stopwatch stopwatch = new Stopwatch();
+stopwatch.Start();
 
 // https://www.gutenberg.org/cache/epub/2036/pg2036.txt
 // https://www.gutenberg.org/files/16749/16749-0.txt
@@ -58,6 +61,8 @@ if (res3.IsSuccessStatusCode)
     task3.Wait();
 }
 
+stopwatch.Stop();
+Console.WriteLine(Environment.NewLine + "elapsed ms: " + stopwatch.ElapsedMilliseconds);
 
 Console.WriteLine();
 
