@@ -62,7 +62,7 @@ if (res3.IsSuccessStatusCode)
 }
 
 stopwatch.Stop();
-Console.WriteLine(Environment.NewLine + "elapsed ms: " + stopwatch.ElapsedMilliseconds);
+Console.WriteLine(Environment.NewLine + "elapsed time (ms): " + stopwatch.ElapsedMilliseconds);
 
 Console.WriteLine();
 
