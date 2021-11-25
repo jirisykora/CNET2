@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFTextGUI.Model;
 
 namespace WPFTextGUI.Views
 {
@@ -29,9 +32,20 @@ namespace WPFTextGUI.Views
             DataContext = result;
         }
 
-        private void btnSend_Click(object sender, RoutedEventArgs e)
+        private async void btnSend_Click(object sender, RoutedEventArgs e)
         {
+            var result = (StatsResult)DataContext;
 
+            var apiurl = "https://localhost:7038/";
+
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri(apiurl);
+
+            var res = await client.PostAsJsonAsync("/stats", result);
+            if (res.IsSuccessStatusCode)
+                this.Close();
+            else
+                MessageBox.Show("Chyba");
         }
     }
 }

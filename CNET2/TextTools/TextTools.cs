@@ -14,12 +14,12 @@
 
             try
             {
-                var content = await client.GetStringAsync(url);
+                string content = await client.GetStringAsync(url);
                 return FreqAnalyzeFromString(content);
             }
             catch(Exception ex)
             {
-                throw new Exception("Failed FreqAnalyzeFromUrlAsync " + url);
+                throw new Exception("Failed FreqAnalyzeFromUrlAsync " + url + ex.Message);
             }
                                               
         }

@@ -18,13 +18,18 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Grid.Row="0">
             <WrapPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="0" Height="36">
-                <Button Name="btnLoad" Content="Read Async" VerticalAlignment="Center" Height="35" Width ="70" Click="btnLoad_Click" />
-                <Button Name="btnStatsAllParallel" Content="Stats All (P)" Height="35" Width ="70" Click="btnStatsAllParallel_Click" />
-                <Button Name ="btnStatsAll" Content="Stats All" VerticalAlignment="Center" Height="35" Width ="70" Click="btnStatsAll_Click" />
-                <Button Name="btnStatsAllParallelLock" Content="Stats All (P-L)" Height="35" Width ="70" Click="btnStatsAllParallelLock_Click"/>
-                <Button Name="btnShowAnalysisDetail" Content="Stats Result"  Height="35" Width ="70" Click="btnShowAnalysisDetail_Click"/>
+                <Button Name="btnLoad" Content="Read Async" VerticalAlignment="Center" Margin="1" Height="35" Width ="70" Click="btnLoad_Click" />
+                <Button Name="btnStatsAllParallel" Content="Stats All (P)" Margin="1" Height="35" Width ="70" Click="btnStatsAllParallel_Click" />
+                <Button Name ="btnStatsAll" Content="Stats All" VerticalAlignment="Center" Margin="1" Height="35" Width ="70" Click="btnStatsAll_Click" />
+                <Button Name="btnStatsAllParallelLock" Content="Stats All (P-L)" Margin="1" Height="35" Width ="70" Click="btnStatsAllParallelLock_Click"/>
+                
             </WrapPanel>
             <ProgressBar x:Name ="pgbProgress" Height="10" Width="780"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Label VerticalAlignment="Center" FontSize="20">URL:</Label>
+                <TextBox Name="txtInputUrl" Width="300" />
+                <Button Name="btnShowAnalysisDetail" Content="Analyze" Margin="5" Height="35" Width ="70" Click="btnShowAnalysisDetail_Click"/>
+            </StackPanel>
         </StackPanel>
         <ScrollViewer Margin="0" Grid.Row="1">
             <TextBlock x:Name="txbInfo" TextWrapping="Wrap"/>

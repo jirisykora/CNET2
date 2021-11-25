@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFTextGUI.Model;
 using WPFTextGUI.Views;
+using System.Net.Http.Json;
 
 namespace WPFTextGUI
 {
