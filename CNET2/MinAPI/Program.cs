@@ -26,10 +26,16 @@ app.UseHttpsRedirection();
 // server_url/hello
 app.MapGet("/hello", () => "Hello!");
 
+
 // POST -> /stats
-app.MapPost("/stats", (StatsResult result) =>
+app.MapPost("/stats", (StatsDb db, StatsResult result) =>
 {
-    return "ok";
+    db.StatsResults.Add(result);
+    db.SaveChanges();
+
+    // vraci se objekt, ktery je po ulozeni doplnen o ID + Result.Created
+    return Results.Created($"/stats/{result.Id}", result);
+
 });
 
 
