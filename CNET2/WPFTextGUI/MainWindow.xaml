@@ -29,6 +29,7 @@
                 <Label VerticalAlignment="Center" FontSize="20">URL:</Label>
                 <TextBox Name="txtInputUrl" Width="300" />
                 <Button Name="btnShowAnalysisDetail" Content="Analyze" Margin="5" Height="35" Width ="70" Click="btnShowAnalysisDetail_Click"/>
+                <Button Name="btnReadAllFromApi" Content="ReadAll" Margin="5" Height="35" Width ="70" Click="btnReadAllFromApi_Click"/>
             </StackPanel>
         </StackPanel>
         <ScrollViewer Margin="0" Grid.Row="1">

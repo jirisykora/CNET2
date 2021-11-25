@@ -40,25 +40,27 @@ app.MapPost("/stats", (StatsDb db, StatsResult result) =>
 
 
 // GET -> /stats/5
-app.MapGet("/stats/{id}", (int id) =>
+app.MapGet("/stats/{id}", (StatsDb db, int id) =>
 {
-    StatsResult sr = new StatsResult();
-    sr.Id = id;
-    sr.Source = "dummy result";
-    return sr;
+    var result = db.StatsResults.Where(x => x.Id == id).FirstOrDefault();
+    if(result != null)
+    {
+        return Results.Ok(result);
+    }
+    else
+    {
+        return Results.NotFound(); 
+    }
 });
 
 // GET -> /stats/all
-app.MapGet("/stats/all", GetAllResults);
+app.MapGet("/stats/all", (StatsDb db) => GetAllResults(db));
 
 app.Run();
 
-static List<StatsResult> GetAllResults()
+static List<StatsResult> GetAllResults(StatsDb db)
 {
-    return new List<StatsResult>()
-    {
-        new StatsResult() { Id = 1, Source = "dummy result"},
-        new StatsResult() { Id = 2, Source = "dummy result"},
-        new StatsResult() { Id = 3, Source = "dummy result"}
-    };
+
+    return db.StatsResults.ToList();
+    
 }

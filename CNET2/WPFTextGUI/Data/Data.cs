@@ -7,8 +7,10 @@ using WPFTextGUI.Model;
 
 namespace WPFTextGUI.Data
 {
-    internal class Data
+    public class Data
     {
-        public static List<StatsResult> Results {get; set;} = new List<StatsResult>();  
+        public static List<StatsResult> Results {get; set;} = new List<StatsResult>();
+
+        public static string APIUrl = "https://localhost:7038/";
     }
 }

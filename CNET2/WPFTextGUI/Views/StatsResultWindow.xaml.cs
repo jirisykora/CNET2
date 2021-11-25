@@ -36,7 +36,7 @@ namespace WPFTextGUI.Views
         {
             var result = (StatsResult)DataContext;
 
-            var apiurl = "https://localhost:7038/";
+            var apiurl = Data.Data.APIUrl;
 
             using var client = new HttpClient();
             client.BaseAddress = new Uri(apiurl);

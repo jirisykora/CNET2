@@ -191,7 +191,7 @@ namespace WPFTextGUI
 
         private async void btnShowAnalysisDetail_Click(object sender, RoutedEventArgs e)
         {
-            var url = "https://www.gutenberg.org/cache/epub/19694/pg19694.txt";
+            var url = txtInputUrl.Text;
 
             var d = DateTime.Now;
 
@@ -209,6 +209,11 @@ namespace WPFTextGUI
             // Open window
             StatsResultWindow rw = new StatsResultWindow(result);
             rw.Show();
+        }
+
+        private void btnReadAllFromApi_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
