@@ -11,6 +11,7 @@ namespace WPFTextGUI.Model
     /// </summary>
     public class StatsResult
     {
+        public int Id { get; set; }
         /// <summary>
         /// source text for analysis
         /// </summary>
