@@ -22,6 +22,7 @@
                 <Button Name="btnStatsAllParallel" Content="Stats All (P)" Height="35" Width ="70" Click="btnStatsAllParallel_Click" />
                 <Button Name ="btnStatsAll" Content="Stats All" VerticalAlignment="Center" Height="35" Width ="70" Click="btnStatsAll_Click" />
                 <Button Name="btnStatsAllParallelLock" Content="Stats All (P-L)" Height="35" Width ="70" Click="btnStatsAllParallelLock_Click"/>
+                <Button Name="btnShowAnalysisDetail" Content="Stats Result"  Height="35" Width ="70" Click="btnShowAnalysisDetail_Click"/>
             </WrapPanel>
             <ProgressBar x:Name ="pgbProgress" Height="10" Width="780"/>
         </StackPanel>

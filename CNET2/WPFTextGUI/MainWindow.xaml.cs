@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFTextGUI.Model;
+using WPFTextGUI.Views;
 
 namespace WPFTextGUI
 {
@@ -185,6 +186,28 @@ namespace WPFTextGUI
             stopwatch.Stop();
             txbDebugInfo.Text = "elapsed ms: " + stopwatch.ElapsedMilliseconds;
             Mouse.OverrideCursor = null;
+        }
+
+        private async void btnShowAnalysisDetail_Click(object sender, RoutedEventArgs e)
+        {
+            var url = "https://www.gutenberg.org/cache/epub/19694/pg19694.txt";
+
+            var d = DateTime.Now;
+
+            var dict = await TextTools.TextTools.FreqAnalyzeFromUrlAsync(url);
+            var top10 = TextTools.TextTools.GetTopWord(10, dict);
+
+            var elapsed = (DateTime.Now - d).TotalMilliseconds;
+
+            // model / naplnime daty a posleme do okna StatsResultWindow
+            StatsResult result = new StatsResult();
+            result.Top10Words = top10;
+            result.Source = url;
+            result.ElapsedMilliseconds = (int)elapsed;
+            result.SubmitedBy = "Jiri Sykora";
+            // Open window
+            StatsResultWindow rw = new StatsResultWindow(result);
+            rw.Show();
         }
     }
 }

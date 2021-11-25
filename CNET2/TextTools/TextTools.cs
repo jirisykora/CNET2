@@ -8,6 +8,22 @@
             return FreqAnalyzeFromString(content, splitby);
         }
 
+        public static async Task<Dictionary<string, int>> FreqAnalyzeFromUrlAsync(string url, string splitby = " ")
+        {
+            using var client = new HttpClient();
+
+            try
+            {
+                var content = await client.GetStringAsync(url);
+                return FreqAnalyzeFromString(content);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Failed FreqAnalyzeFromUrlAsync " + url);
+            }
+                                              
+        }
+
         public static Dictionary<string, int> FreqAnalyzeFromFile(string file, string splitby = " ")
         {
             var content = File.ReadAllTextAsync(file);
