@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Collections.Generic;
-using WPFTextGUI.Model;
+using MinAPI.Data;
+using MinAPI.Model;
+
 
 namespace MinAPI.Data
 {

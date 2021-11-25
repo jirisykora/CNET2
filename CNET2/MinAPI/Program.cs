@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MinAPI.Data;
-using WPFTextGUI.Model;
+using MinAPI.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
